@@ -24,7 +24,7 @@ public class SchedulingInterface extends Application {
     @Override
     public void start(Stage stage) throws Exception 
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/schedulinginterface/Views/LoginForm.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/LoginForm.fxml"));
         Parent root = loader.load();
         
         Scene scene = new Scene(root);
