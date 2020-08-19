@@ -31,4 +31,9 @@ public class Customer
     {
         return Name;
     }
+
+    public int getCustomerId() 
+    {
+        return ID;
+    }
 }

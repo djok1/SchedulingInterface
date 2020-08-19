@@ -49,4 +49,9 @@ public class CustomerDB
         }
         return null;
     }
+
+    public static ObservableList<Customer> getAllCustomers() 
+    {
+        return allCustomers;
+    }
 }

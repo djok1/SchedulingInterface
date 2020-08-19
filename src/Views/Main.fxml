@@ -5,17 +5,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="282.0" prefWidth="327.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="Controllers.MainController">
+<AnchorPane id="AnchorPane" prefHeight="282.0" prefWidth="327.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="38.0" prefHeight="40.0" prefWidth="185.0" text="Main Options">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Button layoutX="72.0" layoutY="108.0" mnemonicParsing="false" onAction="#handleCustomerButton" prefHeight="25.0" prefWidth="185.0" text="Customer Management" />
-      <Button layoutX="72.0" layoutY="150.0" mnemonicParsing="false" onAction="#handleAppointmentButton" prefHeight="25.0" prefWidth="185.0" text="Appointment Management" />
-      <Button layoutX="72.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleReportsButton" prefHeight="25.0" prefWidth="185.0" text="Reporting System" />
-      <Button layoutX="72.0" layoutY="227.0" mnemonicParsing="false" onAction="#handleLogsButton" prefHeight="25.0" prefWidth="185.0" text="Logs" />
+      <Button layoutX="72.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleAppointmentBTN" prefHeight="25.0" prefWidth="185.0" text="Appointment Management" />
+      <Button layoutX="71.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleCustomerBTN" prefHeight="25.0" prefWidth="185.0" text="Customer Management" />
+      <Button layoutX="72.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleReportsBTN" prefHeight="25.0" prefWidth="185.0" text="Reporting System" />
+      <Button layoutX="72.0" layoutY="227.0" mnemonicParsing="false" onAction="#handleLogsBTN" prefHeight="25.0" prefWidth="185.0" text="Logs" />
    </children>
 </AnchorPane>

@@ -48,15 +48,9 @@ public class MainController implements Initializable
             alert.showAndWait();
         } 
     }
-
+   
     @FXML
-    public void handleCustomerButton() 
-    {
-        
-    }
-    
-    @FXML
-    public void handleAppointmentButton() 
+    public void handleAppointmentBTN() 
     {
         try 
         {
@@ -73,15 +67,56 @@ public class MainController implements Initializable
     }
     
     @FXML
-    public void handleReportsButton() 
+    public void handleCustomerBTN() 
     {
-        
+        try 
+        {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/CustomerMain.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } 
+        catch (IOException e) 
+        {
+            System.out.println("Customer Main Error: " + e.getMessage());
+        }
+    }
+    @FXML
+    public void handleReportsBTN() 
+    {
+        try 
+        {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/Veiws/ReportMain.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } 
+        catch (IOException e) 
+        {
+            System.out.println("Report Error: " + e.getMessage());
+        }
     }
     
     @FXML
-    public void handleLogsButton() 
+    public void handleLogsBTN() 
     {
-        
+        File file = new File("log.txt");
+        if(file.exists()) 
+        {
+            if(Desktop.isDesktopSupported()) 
+            {
+                try 
+                {
+                    Desktop.getDesktop().open(file);
+                } 
+                catch (IOException e) 
+                {
+                    System.out.println("Error Opening Log File: " + e.getMessage());
+                }
+            }
+        }
     }    
     
 }
