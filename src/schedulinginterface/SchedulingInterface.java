@@ -22,8 +22,10 @@ import javafx.stage.Stage;
 public class SchedulingInterface extends Application {
     
     @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Views/LoginForm.fxml"));
+    public void start(Stage stage) throws Exception 
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/schedulinginterface/Views/LoginForm.fxml"));
+        Parent root = loader.load();
         
         Scene scene = new Scene(root);
         
@@ -31,7 +33,7 @@ public class SchedulingInterface extends Application {
         stage.show();
     }
 
-    /**
+    /** 
      * @param args the command line arguments
      */
     public static void main(String[] args) 
