@@ -1,9 +1,11 @@
+package schedulinginterface;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package schedulinginterface;
+
 
 import Utils.DBConnection;
 import javafx.application.Application;
@@ -21,7 +23,7 @@ public class SchedulingInterface extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Views/LoginForm.fxml"));
         
         Scene scene = new Scene(root);
         
