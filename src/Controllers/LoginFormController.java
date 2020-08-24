@@ -74,8 +74,7 @@ public class LoginFormController implements Initializable {
         boolean validUser = UserDB.login(username, password);
         if(validUser)
         {
-            ((Node) (event.getSource())).getScene().getWindow().hide();
-            Stage stage = new Stage();
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/Views/Main.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
