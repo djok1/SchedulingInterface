@@ -52,6 +52,33 @@ public class CustomerDB
 
     public static ObservableList<Customer> getAllCustomers() 
     {
-        return allCustomers;
+       allCustomers.clear();
+        try 
+        {
+            Statement statement = DBConnection.getConnection().createStatement();
+            String query = 
+                  "SELECT customer.customerId, customer.customerName, address.address, address.phone, address.postalCode, city.city "
+                + "FROM customer " 
+                + "LEFT JOIN address ON customer.addressId = address.addressId "
+                + "LEFT JOIN city ON address.cityId = city.cityId";
+            ResultSet results = statement.executeQuery(query);
+            while(results.next()) 
+            {
+                Customer customer = new Customer(results.getInt("customerId"), 
+                        results.getString("customerName"), 
+                        results.getString("address"), 
+                        results.getString("city"), 
+                        results.getString("phone"), 
+                        results.getString("postalCode"));
+                allCustomers.add(customer);
+            }
+            statement.close();
+            return allCustomers;
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println("SQLException: " + e.getMessage());
+            return null;
+        }
     }
 }

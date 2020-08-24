@@ -28,7 +28,8 @@ import javafx.stage.Stage;
  *
  * @author Djok
  */
-public class LoginFormController implements Initializable {
+public class LoginFormController implements Initializable 
+{
     
     
     /**

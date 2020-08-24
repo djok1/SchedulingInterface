@@ -72,7 +72,22 @@ public class CustomerAddController implements Initializable
         //upon reading looks like 5 didgits is the shortest personl use phone number in the solomon islands
         if(phoneTXT.getText().replace("-","").matches("[0-9]+") && phoneTXT.getText().length() >= 5)
         {
-
+            if(!nameTXT.getText().isEmpty() && !addressTXT.getText().isEmpty() && !cityTXT.getText().isEmpty() && !counttryTXT.getText().isEmpty() && !postalTXT.getText().isEmpty())
+            {
+                CustomerDB.saveCustomer(nameTXT, addressTXT, cityTXT, counttryTXT, postalTXT);
+            }
+            else
+            {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setContentText("All boxes must be filled out");
+                alert.showAndWait();
+            }
+        }
+        else
+        {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setContentText("Please enter valid phone number");
+            alert.showAndWait();
         }
     }
     

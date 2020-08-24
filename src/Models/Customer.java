@@ -17,6 +17,11 @@ public class Customer
     private String City;
     private String Zip;
     private String Phone;
+
+    Customer(int aInt, String string, String string0, String string1, String string2, String string3) 
+    {
+        
+    }
     
     
     
