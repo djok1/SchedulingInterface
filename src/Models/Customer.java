@@ -18,9 +18,15 @@ public class Customer
     private String Zip;
     private String Phone;
 
-    Customer(int aInt, String string, String string0, String string1, String string2, String string3) 
+    public Customer(){};
+    public Customer(int id, String name, String address, String city, String zip, String phone) 
     {
-        
+        ID = id;
+        Name = name;
+        Address = address;
+        City = city;
+        Zip = zip;
+        Phone = phone;
     }
 
     Customer() {}
