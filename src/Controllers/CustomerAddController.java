@@ -5,6 +5,7 @@
  */
 package Controllers;
 
+import Models.CustomerDB;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -74,7 +75,7 @@ public class CustomerAddController implements Initializable
         {
             if(!nameTXT.getText().isEmpty() && !addressTXT.getText().isEmpty() && !cityTXT.getText().isEmpty() && !counttryTXT.getText().isEmpty() && !postalTXT.getText().isEmpty())
             {
-                CustomerDB.saveCustomer(nameTXT, addressTXT, cityTXT, counttryTXT, postalTXT);
+                CustomerDB.saveCustomer(nameTXT.getText(), addressTXT.getText(), cityTXT.getText(), postalTXT.getText(), phoneTXT.getText());
             }
             else
             {

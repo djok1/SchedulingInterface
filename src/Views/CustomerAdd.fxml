@@ -16,7 +16,7 @@
       <TextField fx:id="nameTXT" layoutX="119.0" layoutY="101.0" />
       <TextField fx:id="addressTXT" layoutX="392.0" layoutY="101.0" />
       <TextField fx:id="cityTXT" layoutX="120.0" layoutY="165.0" />
-      <TextField fx:id="countryTXT" editable="false" layoutX="392.0" layoutY="167.0" />
+      <TextField fx:id="countryTXT" layoutX="392.0" layoutY="167.0" />
       <TextField fx:id="zipTXT" layoutX="119.0" layoutY="231.0" />
       <TextField fx:id="phoneTXT" layoutX="392.0" layoutY="231.0" />
       <Label layoutX="78.0" layoutY="105.0" text="Name" />

@@ -22,6 +22,8 @@ public class Customer
     {
         
     }
+
+    Customer() {}
     
     
     

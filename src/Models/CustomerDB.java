@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -80,5 +81,41 @@ public class CustomerDB
             System.out.println("SQLException: " + e.getMessage());
             return null;
         }
+    }
+
+    public static boolean saveCustomer(String nameTXT, String addressTXT, String cityTXT, String postalTXT, String phoneTXT) 
+    {
+        try 
+        {
+            Statement statement = DBConnection.getConnection().createStatement();
+            String globalidQuery = "SELECT MAX(CustomerID) from U04aHC.customer";
+            ResultSet globalResults = statement.executeQuery(globalidQuery);
+            if(globalResults.next() == false)
+            {
+            globalID = 1;
+            }
+            else
+            {
+            globalID = globalResults.getInt(1);
+            }
+            globalID += 1;
+            int id = globalID;
+            String queryOne = "INSERT INTO address SET address='" + addressTXT + "', addressId='" + id + "', phone='" + phoneTXT + "', postalCode='" + postalTXT + "', cityId=" + cityTXT;
+            int updateOne = statement.executeUpdate(queryOne);
+            if(updateOne == 1) 
+            {
+                String queryTwo = "INSERT INTO customer SET customerId='" + id + "', customerName='" + nameTXT + "', addressId=" + id;
+                int updateTwo = statement.executeUpdate(queryTwo);
+                if(updateTwo == 1) 
+                {
+                    return true;
+                }
+            }
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        return false;
     }
 }
