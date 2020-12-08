@@ -1,19 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="574.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="Controllers.AppointmentsMainController">
+<AnchorPane id="AnchorPane" prefHeight="608.0" prefWidth="878.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AppointmentsMainController">
    <children>
-      <Button layoutX="57.0" layoutY="476.0" mnemonicParsing="false" onAction="#handleAddBTN" text="Add New Appointment" />
-      <TableView fx:id="customerTBL" layoutX="14.0" layoutY="14.0" onMouseClicked="#handleCustomerClick" prefHeight="443.0" prefWidth="225.0">
+      <Button layoutX="57.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleAddBTN" text="Add New Appointment" />
+      <TableView fx:id="customerTBL" layoutX="15.0" layoutY="104.0" onMouseClicked="#handleCustomerClick" prefHeight="443.0" prefWidth="225.0">
          <columns>
             <TableColumn fx:id="customerID" prefWidth="64.0" text="ID" />
             <TableColumn fx:id="customerName" prefWidth="155.0" text="Customer" />
          </columns>
       </TableView>
+      <Label layoutX="301.0" layoutY="28.0" text="Appointments Overview">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <TabPane fx:id="tabs" layoutX="254.0" layoutY="104.0" prefHeight="443.0" prefWidth="584.0" style="-fx-border-color: #000000;" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab fx:id="monthly" text="Appoinments Monthly">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="412.0" prefWidth="565.0">
+                     <children>
+                        <TableView fx:id="monthAptTable" layoutY="34.0" prefHeight="377.0" prefWidth="584.0">
+                           <columns>
+                              <TableColumn fx:id="monthDescription" prefWidth="130.0" text="Description" />
+                              <TableColumn fx:id="monthContact" prefWidth="57.0" text="Contact" />
+                              <TableColumn fx:id="monthLocation" prefWidth="108.0" text="Location" />
+                              <TableColumn fx:id="monthStart" prefWidth="143.0" text="Start" />
+                              <TableColumn fx:id="monthEnd" prefWidth="145.0" text="End" />
+                           </columns>
+                        </TableView>
+                        <Label layoutX="14.0" layoutY="16.0" text="Customer:" />
+                        <Label fx:id="monthCustomerLabel" layoutX="74.0" layoutY="17.0" text="None" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Appointments Weekly">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="412.0" prefWidth="565.0">
+                     <children>
+                        <TableView fx:id="weekAptTable" layoutX="0" layoutY="34.0" prefHeight="377.0" prefWidth="584.0">
+                           <columns>
+                              <TableColumn fx:id="weekDescription" prefWidth="131.0" text="Description" />
+                              <TableColumn fx:id="weekContact" prefWidth="61.0" text="Contact" />
+                              <TableColumn fx:id="weekLocation" prefWidth="98.0" text="Location" />
+                              <TableColumn fx:id="weekStart" prefWidth="142.0" text="Start" />
+                              <TableColumn fx:id="weekEnd" prefWidth="151.0" text="End" />
+                           </columns>
+                        </TableView>
+                        <Label layoutX="14.0" layoutY="16.0" text="Customer:" />
+                        <Label fx:id="weekCustomerLabel" layoutX="74.0" layoutY="17.0" text="None" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <Button layoutX="477.0" layoutY="562.0" mnemonicParsing="false" text="Delete Appointment" />
+      <Button layoutX="265.0" layoutY="562.0" mnemonicParsing="false" text="Modify Appointment" />
+      <Button layoutX="731.0" layoutY="562.0" mnemonicParsing="false" text="Close" />
    </children>
 </AnchorPane>

@@ -11,10 +11,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import Models.Appointment;
+import Models.AppointmentDB;
 
 /**
  * FXML Controller class
@@ -32,8 +35,50 @@ public class AppointmentsMainController implements Initializable
     @FXML
     private TableColumn<Customer, String> customerName;
     
+    @FXML
+    private Label monthCustomerLabel;
+    
+    @FXML
+    private TableView<Appointment> monthAptTable;
+    
+    @FXML
+    private TableColumn<Appointment, String> monthDescription;
+    
+    @FXML
+    private TableColumn<Appointment, String> monthContact;
+    
+    @FXML
+    private TableColumn<Appointment, String> monthLocation;
+    
+    @FXML
+    private TableColumn<Appointment, String> monthStart;
+    
+    @FXML
+    private TableColumn<Appointment, String> monthEnd;
+    
+    @FXML
+    private Label weekCustomerLabel;
+    
+    @FXML
+    private TableView<Appointment> weekAptTable;
+    
+    @FXML
+    private TableColumn<Appointment, String> weekDescription;
+    
+    @FXML
+    private TableColumn<Appointment, String> weekContact;
+    
+    @FXML
+    private TableColumn<Appointment, String> weekLocation;
+    
+    @FXML
+    private TableColumn<Appointment, String> weekStart;
+    
+    @FXML
+    private TableColumn<Appointment, String> weekEnd;
     
     private Customer selectedCustomer;
+
 
     /**
      * Initializes the controller class.
@@ -44,6 +89,46 @@ public class AppointmentsMainController implements Initializable
         customerID.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         customerTBL.setItems(CustomerDB.getAllCustomers());
+        monthDescription.setCellValueFactory(cellData -> 
+        {
+            return cellData.getValue().getDescriptionProperty();
+        });
+        monthContact.setCellValueFactory(cellData -> 
+        {
+            return cellData.getValue().getContactProperty();
+        });
+        monthLocation.setCellValueFactory(cellData ->
+        {
+            return cellData.getValue().getLocationProperty();
+        });
+        monthStart.setCellValueFactory(cellData ->
+        {
+            return cellData.getValue().getStartProperty();
+        });
+        monthEnd.setCellValueFactory(cellData -> 
+        {
+            return cellData.getValue().getEndProperty();
+        });
+        weekDescription.setCellValueFactory(cellData -> 
+        {
+            return cellData.getValue().getDescriptionProperty();
+        });
+        weekContact.setCellValueFactory(cellData -> 
+        {
+            return cellData.getValue().getContactProperty();
+        });
+        weekLocation.setCellValueFactory(cellData -> 
+        {
+            return cellData.getValue().getLocationProperty();
+        });
+        weekStart.setCellValueFactory(cellData -> 
+        {
+            return cellData.getValue().getStartProperty();
+        });
+        weekEnd.setCellValueFactory(cellData -> 
+        {
+            return cellData.getValue().getEndProperty();
+        });
     }
     
     @FXML
@@ -55,10 +140,10 @@ public class AppointmentsMainController implements Initializable
     public void handleCustomerClick(MouseEvent event) {
         selectedCustomer = customerTBL.getSelectionModel().getSelectedItem();
         int id = selectedCustomer.getCustomerId();
-//        monthCustomerLabel.setText(selectedCustomer.getCustomerName());
-//        weekCustomerLabel.setText(selectedCustomer.getCustomerName());
-//        monthAptTable.setItems(AppointmentDB.getMonthlyAppointments(id));
-//        weekAptTable.setItems(AppointmentDB.getWeeklyAppoinments(id));
+        monthCustomerLabel.setText(selectedCustomer.getName());
+        weekCustomerLabel.setText(selectedCustomer.getName());
+        monthAptTable.setItems(AppointmentDB.getMonthlyAppointments(id));
+        weekAptTable.setItems(AppointmentDB.getWeeklyAppoinments(id));
     }
     
 }
