@@ -70,7 +70,7 @@ public class CustomerAddController implements Initializable
     
     private void Validate()
     {
-        //upon reading looks like 5 didgits is the shortest personl use phone number in the solomon islands
+        //upon reading looks like 5 didgits is the shortest personl use phone number in the world
         if(phoneTXT.getText().replace("-","").matches("[0-9]+") && phoneTXT.getText().length() >= 5)
         {
             if(!nameTXT.getText().isEmpty() && !addressTXT.getText().isEmpty() && !cityTXT.getText().isEmpty() && !counttryTXT.getText().isEmpty() && !postalTXT.getText().isEmpty())
