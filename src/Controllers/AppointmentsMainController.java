@@ -140,12 +140,15 @@ public class AppointmentsMainController implements Initializable
     @FXML
     public void handleAddBTN()
     {
-        if(customerTBL.getSelectionModel().getSelectedItem() != null) {
+        if(customerTBL.getSelectionModel().getSelectedItem() != null) 
+        {
             selectedCustomer = customerTBL.getSelectionModel().getSelectedItem();
-        } else {
+        } 
+        else 
+        {
             return;
         }
-        Dialog<ButtonType> dialog = new Dialog();
+        /*Dialog<ButtonType> dialog = new Dialog();
         dialog.initOwner(AppointmentsMain.getScene().getWindow());
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("AppointmentAdd.fxml"));
@@ -176,7 +179,7 @@ public class AppointmentsMainController implements Initializable
                     }));
                 }
             }
-        }));
+        }));*/
     }
     @FXML
     public void handleCustomerClick(MouseEvent event) 
