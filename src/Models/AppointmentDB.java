@@ -65,7 +65,8 @@ public class AppointmentDB
             String query = "SELECT * FROM appointment WHERE customerId = '" + id + "' AND " + 
                 "start >= '" + begin + "' AND start <= '" + end + "'"; 
             ResultSet results = statement.executeQuery(query);
-            while(results.next()) {
+            while(results.next()) 
+            {
                 appointment = new Appointment(results.getInt("appointmentId"), results.getInt("customerId"), results.getString("start"),
                     results.getString("end"), results.getString("title"), results.getString("description"),
                     results.getString("location"), results.getString("contact"));
@@ -109,6 +110,23 @@ public class AppointmentDB
         }
     }
     
-    
+    public static boolean deleteAppointment(int id) 
+    {
+        try 
+        {
+            Statement statement = DBConnection.getConnection().createStatement();
+            String query = "DELETE FROM appointment WHERE appointmentId = " + id;
+            int update = statement.executeUpdate(query);
+            if(update == 1) 
+            {
+                return true;
+            }
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        return false;
+    }
     
 }

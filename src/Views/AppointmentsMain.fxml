@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="608.0" prefWidth="878.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AppointmentsMainController">
    <children>
-      <Button layoutX="57.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleAddBTN" text="Add New Appointment" />
+      <Button fx:id="addBTN" layoutX="57.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleAddBTN" text="Add New Appointment" />
       <TableView fx:id="customerTBL" layoutX="15.0" layoutY="104.0" onMouseClicked="#handleCustomerClick" prefHeight="443.0" prefWidth="225.0">
          <columns>
             <TableColumn fx:id="customerID" prefWidth="64.0" text="ID" />
@@ -65,8 +65,8 @@
             </Tab>
          </tabs>
       </TabPane>
-      <Button layoutX="477.0" layoutY="562.0" mnemonicParsing="false" text="Delete Appointment" />
-      <Button layoutX="265.0" layoutY="562.0" mnemonicParsing="false" text="Modify Appointment" />
+      <Button layoutX="477.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete Appointment" />
+      <Button layoutX="265.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleModifyButton" text="Modify Appointment" />
       <Button layoutX="731.0" layoutY="562.0" mnemonicParsing="false" text="Close" />
    </children>
 </AnchorPane>

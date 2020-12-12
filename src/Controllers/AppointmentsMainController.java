@@ -19,11 +19,21 @@ import javafx.scene.input.MouseEvent;
 import Models.Appointment;
 import Models.AppointmentDB;
 import java.io.IOException;
+import Controllers.AppoitmentAddController;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Tab;
+import javafx.stage.Stage;
+
 
 /**
  * FXML Controller class
@@ -82,8 +92,13 @@ public class AppointmentsMainController implements Initializable
     
     @FXML
     private TableColumn<Appointment, String> weekEnd;
+    @FXML 
+    private Tab monthly;
     
     private Customer selectedCustomer;
+    private Appointment selectedAppointment;
+    private boolean isMonthly;
+    
 
 
     /**
@@ -93,7 +108,7 @@ public class AppointmentsMainController implements Initializable
     public void initialize(URL url, ResourceBundle rb) 
     {
         customerID.setCellValueFactory(new PropertyValueFactory<>("customerId"));
-        customerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        customerName.setCellValueFactory(new PropertyValueFactory<>("Name"));
         customerTBL.setItems(CustomerDB.getAllCustomers());
         monthDescription.setCellValueFactory(cellData -> 
         {
@@ -137,50 +152,7 @@ public class AppointmentsMainController implements Initializable
         });
     }
     
-    @FXML
-    public void handleAddBTN()
-    {
-        if(customerTBL.getSelectionModel().getSelectedItem() != null) 
-        {
-            selectedCustomer = customerTBL.getSelectionModel().getSelectedItem();
-        } 
-        else 
-        {
-            return;
-        }
-        /*Dialog<ButtonType> dialog = new Dialog();
-        dialog.initOwner(AppointmentsMain.getScene().getWindow());
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("AppointmentAdd.fxml"));
-        try {
-            dialog.getDialogPane().setContent(fxmlLoader.load());
-        } catch(IOException e) {
-            System.out.println("AppointmentAdd Error: " + e.getMessage());
-        }
-        ButtonType save = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().add(save);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-        AppointmentAddController controller = fxmlLoader.getController();
-        controller.populateCustomerName(selectedCustomer.getCustomerName());
-        dialog.showAndWait().ifPresent((response -> {
-            if(response == save) {
-                if(controller.handleAddAppointment(selectedCustomer.getCustomerId())) {
-                    monthAptTable.setItems(AppointmentDB.getMonthlyAppointments(selectedCustomer.getCustomerId()));
-                    weekAptTable.setItems(AppointmentDB.getWeeklyAppoinments(selectedCustomer.getCustomerId()));
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("Add Appointment Error");
-                    alert.setContentText(controller.displayErrors());
-                    alert.showAndWait().ifPresent((response2 -> {
-                        if(response2 == ButtonType.OK) {
-                            handleAddButton();
-                        }
-                    }));
-                }
-            }
-        }));*/
-    }
+
     @FXML
     public void handleCustomerClick(MouseEvent event) 
     {
@@ -192,4 +164,126 @@ public class AppointmentsMainController implements Initializable
         weekAptTable.setItems(AppointmentDB.getWeeklyAppoinments(id));
     }
     
+    @FXML
+    public void handleModifyButton(MouseEvent event) 
+    {
+        if(monthly.isSelected()) 
+        {
+            if(monthAptTable.getSelectionModel().getSelectedItem() != null) 
+            {
+                selectedAppointment = monthAptTable.getSelectionModel().getSelectedItem();
+            } else 
+            {
+                return;
+            }
+        } 
+        else
+        {
+            if(weekAptTable.getSelectionModel().getSelectedItem() != null) 
+            {
+                selectedAppointment = weekAptTable.getSelectionModel().getSelectedItem();
+            } 
+            else 
+            {
+                return;
+            }
+        }
+        try
+        {
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+            Stage stage = new Stage();
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("ApointmentModify.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        catch (IOException ex) 
+        {
+            
+        }
+
+    }
+        
+    @FXML
+    public void handleDeleteButton() 
+    {
+        if(monthly.isSelected()) 
+        {
+            isMonthly = true;
+            if(monthAptTable.getSelectionModel().getSelectedItem() != null) 
+            {
+                selectedAppointment = monthAptTable.getSelectionModel().getSelectedItem();
+            } else 
+            {
+                return;
+            }
+        }
+        else 
+        {
+            isMonthly = false;
+            if(weekAptTable.getSelectionModel().getSelectedItem() != null) 
+            {
+                selectedAppointment = weekAptTable.getSelectionModel().getSelectedItem();
+            } 
+            else 
+            {
+                return;
+            }
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete");
+        alert.setHeaderText("Delete Appointment Record");
+        alert.setContentText("Delete Appointment?");
+        alert.showAndWait().ifPresent((response -> 
+        {
+            if(response == ButtonType.OK) 
+            {
+                AppointmentDB.deleteAppointment(selectedAppointment.getID());
+                if(isMonthly) 
+                {
+                   monthAptTable.setItems(AppointmentDB.getMonthlyAppointments(selectedCustomer.getCustomerId())); 
+                } 
+                else 
+                {
+                    weekAptTable.setItems(AppointmentDB.getWeeklyAppoinments(selectedCustomer.getCustomerId()));
+                }
+            }
+        }));
+    }
+    @FXML 
+    public void handleCloseBTN(MouseEvent event)
+    {
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.close();
+    }
+    
+    @FXML
+    private void handleAddBTN(ActionEvent event) throws IOExpception, IOException
+    {
+       if(customerTBL.getSelectionModel().getSelectedItem() != null) 
+        {
+            selectedCustomer = customerTBL.getSelectionModel().getSelectedItem();
+        } 
+        else 
+        {
+            return;
+        }
+
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/AppoitmentAdd.fxml"));
+            Parent AppoitmentAddParent = loader.load();
+            Scene AppointmentAddScene = new Scene (AppoitmentAddParent);
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+            AppoitmentAddController AppointmentAdd = loader.getController();
+            AppointmentAdd.CustomerReciver(selectedCustomer);
+
+
+            window.setScene(AppointmentAddScene);
+            window.show();
+        
+
+    }
+
 }

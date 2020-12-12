@@ -39,7 +39,7 @@ public class MainController implements Initializable
         Appointment appointment = AppointmentDB.Alert15Min();
         if(appointment != null) 
         {
-            Customer customer = CustomerDB.getCustomer(appointment.getCustomerID());
+            Customer customer = CustomerDB.getCustomer(appointment.getCustID());
             String text = String.format("You have a %s appointment with %s at %s", appointment.getDescription(), customer.getName(), appointment.get15Time());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Appointment Reminder");
