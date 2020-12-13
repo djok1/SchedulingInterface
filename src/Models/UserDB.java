@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import Utils.DBConnection;
 import Utils.Log;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -48,5 +51,28 @@ public class UserDB
             System.out.println("SQLException: " + e.getMessage());
             return false;
         }
+    }
+    
+    public static ObservableList<String> getUsers()
+    {
+        ObservableList<String> Users = FXCollections.observableArrayList();
+        try
+        {
+            Statement statement = DBConnection.getConnection().createStatement();
+            String query = "SELECT userName FROM user WHERE active = 1";
+            ResultSet results = statement.executeQuery(query);
+            while(results.next())
+            {
+                Users.add(results.getString("userName"));
+            }
+        }
+        catch (SQLException e)
+        {
+            
+        }
+        
+        
+        
+        return Users;
     }
 }

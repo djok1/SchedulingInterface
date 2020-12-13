@@ -5,11 +5,16 @@
  */
 package Utils;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.ZonedDateTime;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -31,5 +36,31 @@ public class Log
         {
             System.out.println("Log Error: " + e.getMessage());
         }
+    }
+    public static String fingCurrentUser()
+    {
+        ObservableList<String> lines = FXCollections.observableArrayList();
+        String user = "";
+        try (FileReader fr = new FileReader(FILENAME);BufferedReader br = new BufferedReader(fr);) 
+        {
+            String line = br.readLine();
+            while(line != null)
+            {
+                lines.add(line);
+                line = br.readLine();
+            }
+            int size  = lines.size() - 1;
+            String lastLine = lines.get(size);
+            //2020-12-12T17:11:39.760-07:00[America/Denver] test Success
+            int index1 = lastLine.lastIndexOf(']') +2;
+            int index2 = lastLine.lastIndexOf("Success")-1;
+            user = lastLine.substring(index1, index2);
+
+        } 
+        catch (IOException e) 
+        {
+            System.out.println("Log Error: " + e.getMessage());
+        }
+        return user;
     }
 }

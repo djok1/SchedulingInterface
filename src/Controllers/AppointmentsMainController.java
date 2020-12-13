@@ -270,7 +270,7 @@ public class AppointmentsMainController implements Initializable
             return;
         }
 
-            
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/AppoitmentAdd.fxml"));
             Parent AppoitmentAddParent = loader.load();
             Scene AppointmentAddScene = new Scene (AppoitmentAddParent);

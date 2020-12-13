@@ -6,13 +6,16 @@
 package Models;
 
 import Utils.DBConnection;
+import Utils.Log;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -129,4 +132,73 @@ public class AppointmentDB
         return false;
     }
     
+    public static boolean overlappingAppointment(String contact, String start, String end) 
+    {
+        try 
+        {
+            Statement statement = DBConnection.getConnection().createStatement();
+            String query = 
+                    "SELECT appointmentId, start, end, contact "
+                    + "FROM appointment WHERE (start BETWEEN '" + start + "'AND'" + end + "' "
+                    + "OR end BETWEEN '" + start + "'AND'" + end + "')" 
+                    + "AND contact = '" + contact + "'";
+            ResultSet results = statement.executeQuery(query);
+            int rowcount = 0;
+            while(results.next())
+            {
+                rowcount++;
+            }
+            if(rowcount != 0) 
+            {
+                statement.close();
+                return false;
+            } 
+            else 
+            {
+                statement.close();
+                return true;
+            }
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println("SQLExcpection: " + e.getMessage());
+            return true;
+        }
+    }
+
+    
+    public static boolean saveAppointment(int id, String type, String contact, String location, String start, String end) {
+        try 
+        {
+            String tempUser = Log.fingCurrentUser();
+            Statement statement = DBConnection.getConnection().createStatement();
+            String query = 
+                "INSERT INTO appointment SET customerId='" + id +"', userId='" + findUserID(tempUser) + "', title='" + "NA" + "', description='" +
+                type + "', contact='" + contact + "', type='" + "test"+ "', location='" + location + "', start='" + start + "', end='" + 
+                end + "', url='', createDate=NOW(), createdBy='" + tempUser +  "', lastUpdate=NOW(), lastUpdateBy='"+tempUser+"'";
+            int update = statement.executeUpdate(query);
+            if(update == 1) {
+                return true;
+            }
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        return false;
+    }
+    
+    private static String findUserID(String user) throws SQLException
+    {    
+        String id = "";
+        Statement statement = DBConnection.getConnection().createStatement();
+        String query = "SELECT userId FROM user WHERE userName ='" + user + "'";
+        ResultSet results = statement.executeQuery(query);
+        
+        while(results.next()) 
+            {
+                id = String.valueOf(results.getInt("userId"));
+            }
+        return id;
+    }
 }
