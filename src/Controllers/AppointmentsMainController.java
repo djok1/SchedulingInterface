@@ -165,7 +165,7 @@ public class AppointmentsMainController implements Initializable
     }
     
     @FXML
-    public void handleModifyButton(MouseEvent event) 
+    public void handleModifyButton(ActionEvent event) 
     {
         if(monthly.isSelected()) 
         {
@@ -190,13 +190,18 @@ public class AppointmentsMainController implements Initializable
         }
         try
         {
-            ((Node) (event.getSource())).getScene().getWindow().hide();
-            Stage stage = new Stage();
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("ApointmentModify.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ApointmentModify.fxml"));
+            Parent ApointmentModifyParent = loader.load();
+            Scene AppointmenModifyScene = new Scene (ApointmentModifyParent);
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+            ApointmentModifyController AppointmenModify = loader.getController();
+            AppointmenModify.Reciver(selectedCustomer,selectedAppointment);
+
+
+            window.setScene(AppointmenModifyScene);
+            window.show();
         }
         catch (IOException ex) 
         {
