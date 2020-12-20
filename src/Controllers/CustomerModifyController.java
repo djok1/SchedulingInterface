@@ -5,6 +5,8 @@
  */
 package Controllers;
 
+import Models.Appointment;
+import Models.Customer;
 import Models.CustomerDB;
 import java.io.IOException;
 import java.net.URL;
@@ -17,7 +19,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -26,13 +27,14 @@ import javafx.stage.Stage;
  *
  * @author Djok
  */
-public class CustomerAddController implements Initializable 
+public class CustomerModifyController implements Initializable 
 {
+    Customer selectedCustomer;
     @FXML
     private TextField nameTXT;  
     @FXML
     private TextField addressTXT;  
-    @FXML  
+    @FXML
     private TextField cityTXT;
     @FXML
     private TextField countryTXT;
@@ -88,27 +90,32 @@ public class CustomerAddController implements Initializable
         {
             if(!nameTXT.getText().isEmpty() && !addressTXT.getText().isEmpty() && !cityTXT.getText().isEmpty() && !countryTXT.getText().isEmpty() && !postalTXT.getText().isEmpty())
             {
-                CustomerDB.saveCustomer(nameTXT.getText(), addressTXT.getText(), cityTXT.getText(), postalTXT.getText(), phoneTXT.getText(), countryTXT.getText());
+                CustomerDB.modifyCustomer(nameTXT.getText(), addressTXT.getText(), cityTXT.getText(), postalTXT.getText(), phoneTXT.getText(), countryTXT.getText(), selectedCustomer.getCustomerId());
             }
             else
             {
-                Alert alert = new Alert(AlertType.ERROR);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("All boxes must be filled out");
                 alert.showAndWait();
             }
         }
         else
         {
-            Alert alert = new Alert(AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Please enter valid phone number");
             alert.showAndWait();
         }
     }
     
+    public void Reciver(Customer SelectedCustoemr)
+    {
+        selectedCustomer = SelectedCustoemr;
+        nameTXT.setText(selectedCustomer.getName());  
+        addressTXT.setText(selectedCustomer.getAddress());  
+        cityTXT.setText(selectedCustomer.getCity());
+        countryTXT.setText(selectedCustomer.getCountry());
+        postalTXT.setText(selectedCustomer.getZip());
+        phoneTXT.setText(selectedCustomer.getPhone());
+    }
     
-//        Alert alert = new Alert(AlertType.INFORMATION);
-//        alert.setTitle(titleBar);
-//        alert.setHeaderText(headerMessage);
-//        alert.setContentText("it worked");
-//        alert.showAndWait();
 }

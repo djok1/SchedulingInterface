@@ -88,14 +88,14 @@ public class MainController implements Initializable
         try 
         {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/Veiws/ReportMain.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/ReportMain.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         } 
         catch (IOException e) 
         {
-            System.out.println("Report Error: " + e.getMessage());
+            System.out.println("Report Main Error: " + e.getMessage());
         }
     }
     

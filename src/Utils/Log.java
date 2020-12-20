@@ -37,7 +37,7 @@ public class Log
             System.out.println("Log Error: " + e.getMessage());
         }
     }
-    public static String fingCurrentUser()
+    public static String fingCurrentUser()  
     {
         ObservableList<String> lines = FXCollections.observableArrayList();
         String user = "";

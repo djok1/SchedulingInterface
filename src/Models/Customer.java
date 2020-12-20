@@ -17,9 +17,10 @@ public class Customer
     private String City;
     private String Zip;
     private String Phone;
+    private String Country;
 
     public Customer(){};
-    public Customer(int id, String name, String address, String city, String zip, String phone) 
+    public Customer(int id, String name, String address, String city, String zip, String phone, String country) 
     {
         ID = id;
         Name = name;
@@ -27,6 +28,7 @@ public class Customer
         City = city;
         Zip = zip;
         Phone = phone;
+        Country = country;
     }
 
     
@@ -47,5 +49,29 @@ public class Customer
     public int getCustomerId() 
     {
         return ID;
+    }
+    public String getAddress()
+    {
+        return Address;
+    }
+
+    public String getCity() 
+    {
+        return City;
+    }
+
+    public String getCountry() 
+    {
+        return Country;
+    }
+
+    public String getZip() 
+    {
+        return Zip;
+    }
+
+    public String getPhone() 
+    {
+        return Phone;
     }
 }
